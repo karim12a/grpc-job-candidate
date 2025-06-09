@@ -1,0 +1,10 @@
+server:
+  port: 8181
+grpc:
+  client:
+    candidate-service:
+      address: static://localhost:9999
+      negotiationType: plaintext
+    job-service:
+      address: static://localhost:8585
+      negotiationType: plaintext

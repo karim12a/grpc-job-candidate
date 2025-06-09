@@ -1,0 +1,37 @@
+syntax = "proto3";
+option java_package = "com.grpc.candidates";
+option java_multiple_files = true;
+
+import "google/protobuf/empty.proto";
+import "common/common.proto";
+
+message Candidate{
+  string  id=1;
+  string firstName = 2;
+  string lastName = 3;
+  string jobId = 4;
+}
+message CandidateRequest{
+  string firstName = 1;
+  string lastName = 2;
+  string jobId = 3;
+}
+message  ConfirmationResponse{
+  string confirmationId = 1;
+  string confirmatinonMessage = 2;
+}
+message  CandidatesResponse{
+  repeated  Candidate candidates = 1;
+}
+message  CandidateToUpdateRequest{
+  Candidate candidate = 1;
+}
+service candidatesServce {
+
+  // B) CRUD
+  rpc save(CandidateRequest) returns (ConfirmationResponse);  //(Save)
+  rpc findAll (google.protobuf.Empty) returns (CandidatesResponse); //(find all)
+  rpc findById (Id) returns (Candidate);  //(find By Id)
+  rpc deleteById (Id) returns (google.protobuf.Empty); //(deleteBy By Id)
+  rpc update(CandidateToUpdateRequest) returns (Candidate); // (update)
+}

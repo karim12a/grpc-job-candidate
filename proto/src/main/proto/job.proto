@@ -1,0 +1,35 @@
+syntax = "proto3";
+option java_package = "com.grpc.job";
+option java_multiple_files = true;
+import "google/protobuf/empty.proto";
+import "common/common.proto";
+//
+message Job{
+  string Id=1;
+  string jobTitle = 2;
+  string description = 3;
+}
+//
+message JobToSaveRequest{
+  string jobTitle = 1;
+  string description = 2;
+}
+message  JobToUpdateRequest{
+  Job job = 1;
+}
+message JobResponse{
+  Job job=1;
+}
+message allFondedJobsResponse{
+  repeated  Job jobs = 1;
+}
+// Service
+service jobServce {
+
+  // B) CRUD
+  rpc save(JobToSaveRequest) returns (JobResponse);  //(Save)
+  rpc findAll (google.protobuf.Empty) returns (stream allFondedJobsResponse); //(find all)
+  rpc findById (Id) returns (JobResponse);  //(find By Id)
+  rpc deleteById (Id) returns (google.protobuf.Empty); //(deleteBy By Id)
+  rpc update(JobToUpdateRequest) returns (JobResponse); // (update)
+}
